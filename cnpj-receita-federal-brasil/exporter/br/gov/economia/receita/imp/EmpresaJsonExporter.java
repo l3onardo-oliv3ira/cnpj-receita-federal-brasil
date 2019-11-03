@@ -16,73 +16,73 @@ import br.gov.economia.receita.IField;
 
 public class EmpresaJsonExporter extends EmpresaVisitor {
 
-	private final int max;
-	private boolean comma = false;
-	private final PrintWriter writer;
-	private int total = 0;
-	
-	public EmpresaJsonExporter(PrintWriter writer) {
-		this(writer, Integer.MAX_VALUE);
-	}
-	
-	public EmpresaJsonExporter(PrintWriter writer, int max) {
-		this.writer = writer;
-		this.max = max;
-		this.total = 0;
-	}
-	
-	@Override
-	public void start() {
-		writer.print('[');
-	}
-	
-	
-	@Override
-	public void end() {
-		writer.print(']');
-	}
+  private final int max;
+  private boolean comma = false;
+  private final PrintWriter writer;
+  private int total = 0;
+  
+  public EmpresaJsonExporter(PrintWriter writer) {
+    this(writer, Integer.MAX_VALUE);
+  }
+  
+  public EmpresaJsonExporter(PrintWriter writer, int max) {
+    this.writer = writer;
+    this.max = max;
+    this.total = 0;
+  }
+  
+  @Override
+  public void start() {
+    writer.print('[');
+  }
+  
+  
+  @Override
+  public void end() {
+    writer.print(']');
+  }
 
-	@Override
-	public VisitResult beginEmpresa(int row) {
-		if (comma)
-			writer.println(',');
-		writer.println('{');
-		writer.print(" \"id\": " + row);
-		comma = true;
-		return VisitResult.CONTINUE;
-	}
+  @Override
+  public VisitResult beginEmpresa(int row) {
+    if (comma)
+      writer.println(',');
+    writer.println('{');
+    writer.print(" \"id\": " + row);
+    comma = true;
+    return VisitResult.CONTINUE;
+  }
 
-	@Override
-	public VisitResult endEmpresa() {
-		writer.println();
-		writer.print('}');
-		if (++total == max)
-			return VisitResult.TERMINATE;
-		return VisitResult.CONTINUE;
-	}
+  @Override
+  public VisitResult endEmpresa() {
+    writer.println();
+    writer.print('}');
+    if (++total == max)
+      return VisitResult.TERMINATE;
+    return VisitResult.CONTINUE;
+  }
 
-	@Override
-	public VisitResult fieldEmpresa(int row, int col, IField field) {
-		writer.println(',');
-		writer.print(" \"" + field.getName() + "\":");
-		if (!field.isMultivalued())
-			writer.print(field.getValue());
-		else {
-			writer.print('[');
-			boolean comma = false;
-			for(String v: field.getValues()) {
-				if (comma)
-					writer.print(',');
-				writer.print(v);
-				comma = true;
-			}
-			writer.print(']');
-		}
-		return VisitResult.CONTINUE;
-	}
-	
-	public static void main(String[] args) throws IOException {
-	  try(PrintWriter output = new PrintWriter(new File("./output/empresa.json"))){
+  @Override
+  public VisitResult fieldEmpresa(int row, int col, IField field) {
+    writer.println(',');
+    writer.print(" \"" + field.getName() + "\":");
+    if (!field.isMultivalued())
+      writer.print(field.getValue());
+    else {
+      writer.print('[');
+      boolean comma = false;
+      for(String v: field.getValues()) {
+        if (comma)
+          writer.print(',');
+        writer.print(v);
+        comma = true;
+      }
+      writer.print(']');
+    }
+    return VisitResult.CONTINUE;
+  }
+  
+  public static void main(String[] args) throws IOException {
+    try(PrintWriter output = new PrintWriter(new File("./output/empresa.json"))){
       FileLayout layout =  new FileLayout.Builder().empresa()
         .cnpj()                             .setup(LONG)
         .identificador_matriz_ou_filial()   .setup(pipe(new MatrizFilialTransformer(), DQUOTE))
@@ -121,7 +121,7 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
         .data_situacao_especial()           .setup(pipe(ZEROTRIM, DATE, DQUOTE))
       .builder().build(new File("./input/K3241.K03200DV.D90805.L00001"), new EmpresaJsonExporter(output));
       layout.run();
-	  }
-	  System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
+    }
+    System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }
