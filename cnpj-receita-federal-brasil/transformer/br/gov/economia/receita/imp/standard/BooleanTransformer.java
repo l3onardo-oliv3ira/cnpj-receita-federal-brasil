@@ -17,7 +17,7 @@ public class BooleanTransformer extends AbstractTransformer{
     input = input.toLowerCase().trim();
     for(int i = 0; i < YES.length; i++)
       if (YES[i].equals(input))
-        return Boolean.toString(true);
-    return Boolean.toString(false);
+        return "true";
+    return "false";
   }
 }
