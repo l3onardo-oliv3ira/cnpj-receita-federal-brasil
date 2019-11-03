@@ -98,8 +98,8 @@ public final class FileLayout implements Runnable{
 		switch(number) {
 			case '0': return builder.headerLayout.isEnabled() 	? builder.headerLayout	: SkipLayout.INSTANCE;
 			case '1': return builder.empresaLayout.isEnabled() 	? builder.empresaLayout	: SkipLayout.INSTANCE;
-			case '2': return builder.socioLayout.isEnabled() 		? builder.socioLayout		: SkipLayout.INSTANCE;
-			case '6': return builder.cnaeLayout.isEnabled() 		? builder.cnaeLayout		: SkipLayout.INSTANCE;
+			case '2': return builder.socioLayout.isEnabled()		? builder.socioLayout		: SkipLayout.INSTANCE;
+			case '6': return builder.cnaeLayout.isEnabled()			? builder.cnaeLayout		: SkipLayout.INSTANCE;
 			case '9': return builder.traillerLayout.isEnabled() ? builder.traillerLayout: SkipLayout.INSTANCE;
 			default: return SkipLayout.INSTANCE;
 		}
