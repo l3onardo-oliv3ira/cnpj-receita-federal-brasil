@@ -16,60 +16,60 @@ import br.gov.economia.receita.IField;
 
 public class EmpresaSqlExporter extends EmpresaVisitor {
 
-	private final int max;
-	private final PrintWriter writer;
-	private int total = 0;
-	private StringBuilder values = new StringBuilder();
-	
-	public EmpresaSqlExporter(PrintWriter writer) {
-		this(writer, Integer.MAX_VALUE);
-	}
-	
-	public EmpresaSqlExporter(PrintWriter writer, int max) {
-		this.writer = writer;
-		this.max = max;
-		this.total = 0;
-	}
-	
-	@Override
-	public void start() {
-		writer.println(";start transaction here");
-	}
-	
-	
-	@Override
-	public void end() {
-		writer.println(";commit");
-	}
+  private final int max;
+  private final PrintWriter writer;
+  private int total = 0;
+  private StringBuilder values = new StringBuilder();
+  
+  public EmpresaSqlExporter(PrintWriter writer) {
+    this(writer, Integer.MAX_VALUE);
+  }
+  
+  public EmpresaSqlExporter(PrintWriter writer, int max) {
+    this.writer = writer;
+    this.max = max;
+    this.total = 0;
+  }
+  
+  @Override
+  public void start() {
+    writer.println(";start transaction here");
+  }
+  
+  
+  @Override
+  public void end() {
+    writer.println(";commit");
+  }
 
-	@Override
-	public VisitResult beginEmpresa(int row) {
-	  values.setLength(0);
-	  writer.print("insert into empresa (id");
-	  values.append(row);
-		return VisitResult.CONTINUE;
-	}
+  @Override
+  public VisitResult beginEmpresa(int row) {
+    values.setLength(0);
+    writer.print("insert into empresa (id");
+    values.append(row);
+    return VisitResult.CONTINUE;
+  }
 
-	@Override
-	public VisitResult endEmpresa() {
-	  writer.print(")values(");
-	  writer.print(values);
-	  writer.println(");");
-		if (++total == max)
-			return VisitResult.TERMINATE;
-		return VisitResult.CONTINUE;
-	}
+  @Override
+  public VisitResult endEmpresa() {
+    writer.print(")values(");
+    writer.print(values);
+    writer.println(");");
+    if (++total == max)
+      return VisitResult.TERMINATE;
+    return VisitResult.CONTINUE;
+  }
 
-	@Override
-	public VisitResult fieldEmpresa(int row, int col, IField field) {
-	  writer.print(',');
-	  writer.print(field.getName());
-	  values.append(',').append(field.getValue());
-		return VisitResult.CONTINUE;
-	}
-	
-	public static void main(String[] args) throws IOException {
-	  try(PrintWriter output = new PrintWriter(new File("./output/output.sql"))){
+  @Override
+  public VisitResult fieldEmpresa(int row, int col, IField field) {
+    writer.print(',');
+    writer.print(field.getName());
+    values.append(',').append(field.getValue());
+    return VisitResult.CONTINUE;
+  }
+  
+  public static void main(String[] args) throws IOException {
+    try(PrintWriter output = new PrintWriter(new File("./output/output.sql"))){
       FileLayout layout =  new FileLayout.Builder().empresa()
         .cnpj()                             .setup(LONG)
         .identificador_matriz_ou_filial()   .setup(pipe(new MatrizFilialTransformer(), SQUOTE))
@@ -108,7 +108,7 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
         .data_situacao_especial()           .setup(pipe(ZEROTRIM, DATE, SQUOTE))
       .builder().build(new File("./input/K3241.K03200DV.D90805.L00001"), new EmpresaSqlExporter(output, 200));
       layout.run();
-	  }
-	  System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
+    }
+    System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }

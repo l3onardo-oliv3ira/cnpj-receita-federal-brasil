@@ -13,68 +13,68 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public final class Step03 {
-	
-	private Step03() {}
-	
-	/**
-	 * Exportando os 100 primeiros registros das empresas em formato json. Voce pode escrever o seu próprio
-	 * formato de exportação. O core da solução utiliza Visitor design pattern. Basta implementar a sua interface
-	 * IRegisterVisitor ou derivar (é melhor) das classes de apoio EmpresaVisitor, SocioVisitor, etc.
-	 * 
-	 * Neste exemplo, os campos das empresas já foram transformados para os padrões exigidos pela RFC8259. 
-	 * Se precisar, implemente o seu proprio transformador para adequar os resultados segundo o seu desejo.
-	 * @param args
-	 */
-	public static void main(String[] args) throws IOException {
-		
-		File input = new File("./input", "K3241.K03200DV.D90805.L00001");
-		
-		EmpresaJsonExporter exporter = new EmpresaJsonExporter(new PrintWriter(new File("./output/output.json")), 100);
-		
-		FileLayout layout =  new FileLayout.Builder()
-			.empresa()
-					.tipo_de_registro()									.setup(LONG)
-					.indicador_full_diario()						.setup(DQUOTE)
-					.tipo_atualizacao()									.setup(DQUOTE)
-					.cnpj()															.setup(LONG)
-					.identificador_matriz_ou_filial()		.setup(pipe(new MatrizFilialTransformer(), DQUOTE))
-					.razao_social_ou_nome_empresarial()	.setup(DQUOTE)
-					.nome_fantasia()										.setup(DQUOTE)
-					.situacao_cadastral()								.setup(pipe(new SituacaoCadastralTransformer(), DQUOTE))
-					.data_situacao_cadastral()					.setup(pipe(ZEROTRIM, DATE, DQUOTE))
-					.motivo_situacao_cadastral()				.setup(DQUOTE)
-					.nm_cidade_exterior()								.setup(DQUOTE)
-					.co_pais()													.setup(DQUOTE)
-					.nm_pais()													.setup(DQUOTE)
-					.codigo_natureza_juridica()					.setup(LONG)
-					.data_inicio_atividade()						.setup(pipe(ZEROTRIM, DATE, DQUOTE))
-					.cnae_fiscal()											.setup(LONG)
-					.descricao_tipo_logradouro()				.setup(DQUOTE)
-					.logradouro()												.setup(DQUOTE)
-					.numero()														.setup(DQUOTE)
-					.complemento()											.setup(DQUOTE)
-					.bairro()														.setup(DQUOTE)
-					.cep()															.setup(pipe(new CepTransformer(), DQUOTE))
-					.uf()																.setup(DQUOTE)
-					.codigo_municipio()									.setup(DQUOTE)
-					.municipio()												.setup(DQUOTE)
-					.ddd_telefone_1()										.setup(DQUOTE)
-					.ddd_telefone_2()										.setup(DQUOTE)
-					.ddd_fax()													.setup(DQUOTE)
-					.correio_eletronico()								.setup(pipe(LOWERCASE, DQUOTE))
-					.qualificacao_do_responsavel()			.setup(DQUOTE)
-					.capital_social_da_empresa()				.setup(pipe(ZEROTRIM, DQUOTE))
-					.porte_empresa()										.setup(pipe(new PortEmpresaTransformer(), DQUOTE))
-					.opcao_pelo_simples()								.setup(pipe(new OpcaoSimplesTransformer(), DQUOTE))
-					.data_opcao_pelo_simples()					.setup(pipe(ZEROTRIM, DATE, DQUOTE))
-					.data_exclusao_do_simples()					.setup(pipe(ZEROTRIM, DATE, DQUOTE))
-					.opcao_pelo_mei()										.setup(pipe(new OpcaoMeiTransformer(), BOOL))
-					.situacao_especial()								.setup(DQUOTE)
-					.data_situacao_especial()						.setup(pipe(ZEROTRIM, DATE, DQUOTE))
-					.filler()														.setup(pipe(ZEROTRIM, DQUOTE))
-					.fim_de_registro()									.setup(DQUOTE)
-			.builder().build(input, exporter);
-		
-			layout.run();
-	}
+  
+  private Step03() {}
+  
+  /**
+   * Exportando os 100 primeiros registros das empresas em formato json. Voce pode escrever o seu próprio
+   * formato de exportação. O core da solução utiliza Visitor design pattern. Basta implementar a sua interface
+   * IRegisterVisitor ou derivar (é melhor) das classes de apoio EmpresaVisitor, SocioVisitor, etc.
+   * 
+   * Neste exemplo, os campos das empresas já foram transformados para os padrões exigidos pela RFC8259. 
+   * Se precisar, implemente o seu proprio transformador para adequar os resultados segundo o seu desejo.
+   * @param args
+   */
+  public static void main(String[] args) throws IOException {
+    
+    File input = new File("./input", "K3241.K03200DV.D90805.L00001");
+    
+    EmpresaJsonExporter exporter = new EmpresaJsonExporter(new PrintWriter(new File("./output/output.json")), 100);
+    
+    FileLayout layout =  new FileLayout.Builder()
+      .empresa()
+          .tipo_de_registro()                  .setup(LONG)
+          .indicador_full_diario()            .setup(DQUOTE)
+          .tipo_atualizacao()                  .setup(DQUOTE)
+          .cnpj()                              .setup(LONG)
+          .identificador_matriz_ou_filial()    .setup(pipe(new MatrizFilialTransformer(), DQUOTE))
+          .razao_social_ou_nome_empresarial()  .setup(DQUOTE)
+          .nome_fantasia()                    .setup(DQUOTE)
+          .situacao_cadastral()                .setup(pipe(new SituacaoCadastralTransformer(), DQUOTE))
+          .data_situacao_cadastral()          .setup(pipe(ZEROTRIM, DATE, DQUOTE))
+          .motivo_situacao_cadastral()        .setup(DQUOTE)
+          .nm_cidade_exterior()                .setup(DQUOTE)
+          .co_pais()                          .setup(DQUOTE)
+          .nm_pais()                          .setup(DQUOTE)
+          .codigo_natureza_juridica()          .setup(LONG)
+          .data_inicio_atividade()            .setup(pipe(ZEROTRIM, DATE, DQUOTE))
+          .cnae_fiscal()                      .setup(LONG)
+          .descricao_tipo_logradouro()        .setup(DQUOTE)
+          .logradouro()                        .setup(DQUOTE)
+          .numero()                            .setup(DQUOTE)
+          .complemento()                      .setup(DQUOTE)
+          .bairro()                            .setup(DQUOTE)
+          .cep()                              .setup(pipe(new CepTransformer(), DQUOTE))
+          .uf()                                .setup(DQUOTE)
+          .codigo_municipio()                  .setup(DQUOTE)
+          .municipio()                        .setup(DQUOTE)
+          .ddd_telefone_1()                    .setup(DQUOTE)
+          .ddd_telefone_2()                    .setup(DQUOTE)
+          .ddd_fax()                          .setup(DQUOTE)
+          .correio_eletronico()                .setup(pipe(LOWERCASE, DQUOTE))
+          .qualificacao_do_responsavel()      .setup(DQUOTE)
+          .capital_social_da_empresa()        .setup(pipe(ZEROTRIM, DQUOTE))
+          .porte_empresa()                    .setup(pipe(new PortEmpresaTransformer(), DQUOTE))
+          .opcao_pelo_simples()                .setup(pipe(new OpcaoSimplesTransformer(), DQUOTE))
+          .data_opcao_pelo_simples()          .setup(pipe(ZEROTRIM, DATE, DQUOTE))
+          .data_exclusao_do_simples()          .setup(pipe(ZEROTRIM, DATE, DQUOTE))
+          .opcao_pelo_mei()                    .setup(pipe(new OpcaoMeiTransformer(), BOOL))
+          .situacao_especial()                .setup(DQUOTE)
+          .data_situacao_especial()            .setup(pipe(ZEROTRIM, DATE, DQUOTE))
+          .filler()                            .setup(pipe(ZEROTRIM, DQUOTE))
+          .fim_de_registro()                  .setup(DQUOTE)
+      .builder().build(input, exporter);
+    
+      layout.run();
+  }
 }
