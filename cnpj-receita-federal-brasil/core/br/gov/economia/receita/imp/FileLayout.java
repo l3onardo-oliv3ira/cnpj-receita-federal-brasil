@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import br.gov.economia.receita.ICnaeLayout;
 import br.gov.economia.receita.IEmpresaLayout;
@@ -68,6 +69,7 @@ public final class FileLayout implements Runnable{
   private int bufferSize;
   private IRegisterVisitor visitor;
   private Builder builder;
+  private AtomicInteger row = new AtomicInteger(0);
   
   private FileLayout(File input, int bufferSize, IRegisterVisitor visitor, Builder builder) {
     this.input = input;
@@ -76,20 +78,28 @@ public final class FileLayout implements Runnable{
     this.builder = builder;
   }
 
+  public int getCurrentRow() {
+    return this.row.get();
+  }
+  
   @Override
   public void run() {
-    BufferedReader buffer;
+    File[] files = input.isFile() ? new File[] {input} : input.listFiles((File dir, String name) -> !name.startsWith("."));
     try {
-      buffer = new BufferedReader(new FileReader(input, Charset.forName("ISO-8859-1")), bufferSize);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return;
-    }
-    try {
+      Charset charset = Charset.forName("ISO-8859-1");
+      
       visitor.start();
-      iterate(buffer);
+      
+      for(int i = 0; i < files.length; i++) {
+        try(var buffer = new BufferedReader(new FileReader(files[i], charset), bufferSize)){
+          iterate(buffer);
+        } catch (IOException e) {
+          e.printStackTrace();
+          continue;
+        }
+      }
+      
     }finally {
-      Closeables.closeQuietly(buffer);
       visitor.end();
     }
   }
@@ -107,12 +117,12 @@ public final class FileLayout implements Runnable{
 
   private void iterate(BufferedReader buffer){
     String line = null;
-    int row = 0;
+   
     do {
       try {
         line = buffer.readLine();
       } catch (IOException e) {
-        VisitResult vr = visitor.handleError(row, e);
+        VisitResult vr = visitor.handleError(row.get(), e);
         if (VisitResult.TERMINATE != vr)
           continue;
         break;
@@ -121,19 +131,19 @@ public final class FileLayout implements Runnable{
       if (line == null)
         break;
       
-      row++;
+      row.incrementAndGet();
 
       if (line.length() == 0)
         continue;
       
       ILayout layout = from(line.charAt(0));
       
-      VisitResult vr = layout.begin(visitor, row);;
+      VisitResult vr = layout.begin(visitor, row.get());
       if (VisitResult.SKIP == vr)
         continue;
       if (VisitResult.TERMINATE == vr)
         break;
-      vr = layout.process(visitor, row, line);
+      vr = layout.process(visitor, row.get(), line);
       if (VisitResult.SKIP == vr)
         continue;
       if (VisitResult.TERMINATE == vr)

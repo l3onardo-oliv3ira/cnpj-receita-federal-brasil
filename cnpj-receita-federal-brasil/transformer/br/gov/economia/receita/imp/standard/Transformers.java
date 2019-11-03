@@ -19,8 +19,8 @@ public enum Transformers implements ITransformer {
   }
   
   @Override
-  public String transform(String input) {
-    return transformer.transform(input);
+  public String transform(String input, String fieldName) {
+    return transformer.transform(input, fieldName);
   }
   
   public static ITransformer pipe(ITransformer ... transformers) {

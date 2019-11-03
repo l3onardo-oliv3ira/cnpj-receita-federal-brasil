@@ -66,9 +66,9 @@ class Field implements IField {
     List<String> output = reader.read(line, previous, size);
     List<String> transf = new ArrayList<String>(output.size());
     for(String v: output)
-      transf.add(transformer.transform(v));
-    values = transf;
-    return previous + size;
+      transf.add(transformer.transform(v, this.name));
+    this.values = transf;
+    return previous + this.size;
   }
 
   final void setBypass(boolean bypass) {

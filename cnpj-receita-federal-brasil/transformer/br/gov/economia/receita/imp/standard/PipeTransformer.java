@@ -10,9 +10,9 @@ class PipeTransformer implements ITransformer {
   }
   
   @Override
-  public String transform(String input) {
+  public String transform(String input, String fieldName) {
     for(ITransformer t: transformers)
-      input = t.transform(input);
+      input = t.transform(input, fieldName);
     return input;
   }
 }
