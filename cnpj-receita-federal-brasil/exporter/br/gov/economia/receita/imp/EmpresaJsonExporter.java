@@ -36,7 +36,6 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
     writer.print('[');
   }
   
-  
   @Override
   public void end() {
     writer.print(']');
@@ -122,6 +121,6 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
       .builder().build(new File("./input/K3241.K03200DV.D90805.L00001"), new EmpresaJsonExporter(output));
       layout.run();
     }
-    System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
+    System.out.println("Use o comando: [Get-Content .\\empresa.json -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }

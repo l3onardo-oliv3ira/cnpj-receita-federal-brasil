@@ -36,7 +36,6 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
     writer.println(";start transaction here");
   }
   
-  
   @Override
   public void end() {
     writer.println(";commit");
@@ -69,7 +68,7 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
   }
   
   public static void main(String[] args) throws IOException {
-    try(PrintWriter output = new PrintWriter(new File("./output/output.sql"))){
+    try(PrintWriter output = new PrintWriter(new File("./output/empresa.sql"))){
       FileLayout layout =  new FileLayout.Builder().empresa()
         .cnpj()                             .setup(LONG)
         .identificador_matriz_ou_filial()   .setup(pipe(new MatrizFilialTransformer(), SQUOTE))
@@ -109,6 +108,6 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
       .builder().build(new File("./input/K3241.K03200DV.D90805.L00001"), new EmpresaSqlExporter(output, 200));
       layout.run();
     }
-    System.out.println("Use o comando: [Get-Content .\\output.json -Head 100] para ver as 100 primeiras linhas do arquivo");
+    System.out.println("Use o comando: [Get-Content .\\empresa.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }

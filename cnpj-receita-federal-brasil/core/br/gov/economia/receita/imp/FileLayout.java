@@ -19,11 +19,11 @@ public final class FileLayout implements Runnable{
   
   public static class Builder {
 
-    private HeaderLayout   headerLayout     = new HeaderLayout(this);
-    private EmpresaLayout empresaLayout   = new EmpresaLayout(this);
-    private SocioLayout   socioLayout     = new SocioLayout(this);
-    private CnaeLayout    cnaeLayout      = new CnaeLayout(this);
-    private TraillerLayout traillerLayout = new TraillerLayout(this);
+    private HeaderLayout   headerLayout    = new HeaderLayout(this);
+    private EmpresaLayout  empresaLayout   = new EmpresaLayout(this);
+    private SocioLayout    socioLayout     = new SocioLayout(this);
+    private CnaeLayout     cnaeLayout      = new CnaeLayout(this);
+    private TraillerLayout traillerLayout  = new TraillerLayout(this);
     
     private IRegisterVisitor visitor      = new SysoutVisitor();
     
@@ -97,9 +97,9 @@ public final class FileLayout implements Runnable{
   private ILayout from(char number) {
     switch(number) {
       case '0': return builder.headerLayout.isEnabled()   ? builder.headerLayout  : SkipLayout.INSTANCE;
-      case '1': return builder.empresaLayout.isEnabled()   ? builder.empresaLayout  : SkipLayout.INSTANCE;
-      case '2': return builder.socioLayout.isEnabled()    ? builder.socioLayout    : SkipLayout.INSTANCE;
-      case '6': return builder.cnaeLayout.isEnabled()      ? builder.cnaeLayout    : SkipLayout.INSTANCE;
+      case '1': return builder.empresaLayout.isEnabled()  ? builder.empresaLayout : SkipLayout.INSTANCE;
+      case '2': return builder.socioLayout.isEnabled()    ? builder.socioLayout   : SkipLayout.INSTANCE;
+      case '6': return builder.cnaeLayout.isEnabled()     ? builder.cnaeLayout    : SkipLayout.INSTANCE;
       case '9': return builder.traillerLayout.isEnabled() ? builder.traillerLayout: SkipLayout.INSTANCE;
       default: return SkipLayout.INSTANCE;
     }

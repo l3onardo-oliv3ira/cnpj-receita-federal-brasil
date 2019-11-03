@@ -49,7 +49,7 @@ class EmpresaLayout extends Layout implements IEmpresaLayout {
     new Field(1,"fim_de_registro")
   };
 
-  public EmpresaLayout( FileLayout.Builder builder) {
+  public EmpresaLayout(FileLayout.Builder builder) {
     super(builder);
   }
 

@@ -56,11 +56,4 @@ abstract class Layout implements IBuilderProvider, ILayout{
     }
     return VisitResult.CONTINUE;
   };
-  
-  public <T extends ILayout> T setHeaderBypass(boolean bypass) {
-    Field[] fds = getFields();
-    for(int i = 0; i < fds.length; i++)
-      fds[i].setBypass(bypass);
-    return (T)this;
-  }
 }
