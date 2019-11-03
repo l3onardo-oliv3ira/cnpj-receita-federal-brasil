@@ -80,7 +80,7 @@ public class SocioSqlExporter extends SocioVisitor {
           cpf_representante_legal()         .setup(pipe(new CpfInvalidoTransformer(), SQUOTE)).
           nome_representante()              .setup(SQUOTE).
           codigo_qualificacao_representante_legal().setup(pipe(new QualificacaoRepresentanteLegalTransformer(), SQUOTE))
-      .builder().build(new File("./input/"));//, new SocioSqlExporter(output));
+      .builder().build(new File("./input/"), new SocioSqlExporter(output));
       layout.run();
     }
     System.out.println("Use o comando: [Get-Content .\\socio.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
