@@ -25,7 +25,7 @@ public final class Step05 {
         .nome_do_arquivo()                  .setup(DQUOTE)
         .data_de_gravacao()                  .setup(pipe(ZEROTRIM, DATE))
         .numero_da_remessa()                .setup(LONG)
-        .nextFiller()                        .setup(ZEROTRIM)
+        .next_filler()                        .setup(ZEROTRIM)
         .fim_de_registro()                  .setup(DQUOTE).builder()
       .empresa()
         .tipo_de_registro()                  .setup(LONG)
@@ -100,7 +100,7 @@ public final class Step05 {
         total_de_registro_t1()          .setup(LONG).
         total_de_registro_t2()          .setup(LONG).
         total_de_registros_t3()          .setup(LONG).
-        nextFiller()                    .setup(pipe(ZEROTRIM, DQUOTE)).
+        next_filler()                    .setup(pipe(ZEROTRIM, DQUOTE)).
         fim_de_registro()                .setup(DQUOTE).builder().
       build(input);
       layout.run();

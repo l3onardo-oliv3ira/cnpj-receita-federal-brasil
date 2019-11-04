@@ -11,7 +11,7 @@ public abstract class SocioVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldHeader(int row, int col, IField field) {
+  public VisitResult fieldHeader(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -26,7 +26,7 @@ public abstract class SocioVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldCnae(int row, int col, IField field) {
+  public VisitResult fieldCnae(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -41,7 +41,7 @@ public abstract class SocioVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, int column, IField field) {
+  public VisitResult fieldTrailler(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -56,7 +56,7 @@ public abstract class SocioVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, int col, IField field) {
+  public VisitResult fieldEmpresa(int row, IField field) {
     return VisitResult.SKIP;
   }
 

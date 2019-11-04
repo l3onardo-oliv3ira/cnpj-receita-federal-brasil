@@ -7,20 +7,50 @@ import br.gov.economia.receita.imp.FileLayout.Builder;
 
 class TraillerLayout extends Layout implements ITraillerLayout{
 
-  private final Field[] traillers = new Field[] {
-    new Field(1, "tipo_do_registro"),
-    new Field(16, "filler"),
-    new Field(9, "total_de_registro_t1"),
-    new Field(9, "total_de_registro_t2"),
-    new Field(11, "total_de_registros_t3"),
-    new Field(1144, "filler"),
-    new Field(1, "fim_de_registro")
-  };
-  
   public TraillerLayout(Builder builder) {
     super(builder);
   }
 
+  @Override
+  public IFieldSetup<ITraillerLayout> tipo_do_registro() {
+    return new FieldSetup<ITraillerLayout>(add("tipo_do_registro", 0, 1), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> filler() {
+    return new FieldSetup<ITraillerLayout>(add("filler", 1, 16), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> total_de_registro_t1() {
+    return new FieldSetup<ITraillerLayout>(add("total_de_registro_t1", 17, 9), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> total_de_registro_t2() {
+    return new FieldSetup<ITraillerLayout>(add("total_de_registro_t2", 26, 9), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> total_de_registros_t3() {
+    return new FieldSetup<ITraillerLayout>(add("total_de_registros_t3", 35, 9), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> total_de_registros() {
+    return new FieldSetup<ITraillerLayout>(add("total_de_registros", 44, 11), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> next_filler() {
+    return new FieldSetup<ITraillerLayout>(add("next_filler", 55, 1144), this);
+  }
+
+  @Override
+  public IFieldSetup<ITraillerLayout> fim_de_registro() {
+    return new FieldSetup<ITraillerLayout>(add("fim_de_registro", 1199, 1), this);
+  }
+  
   @Override
   public VisitResult begin(IRegisterVisitor visitor, int row) {
     return visitor.beginTrailler(row);
@@ -32,47 +62,7 @@ class TraillerLayout extends Layout implements ITraillerLayout{
   }
 
   @Override
-  protected final Field[] getFields() {
-    return this.traillers;
-  }
-
-  @Override
-  protected VisitResult invokeField(IRegisterVisitor visitor, int row, int col, Field field) {
-    return visitor.fieldTrailler(row, col, field);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> tipo_do_registro() {
-    return new FieldSetup<ITraillerLayout>(traillers[0], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> filler() {
-    return new FieldSetup<ITraillerLayout>(traillers[1], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> total_de_registro_t1() {
-    return new FieldSetup<ITraillerLayout>(traillers[2], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> total_de_registro_t2() {
-    return new FieldSetup<ITraillerLayout>(traillers[3], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> total_de_registros_t3() {
-    return new FieldSetup<ITraillerLayout>(traillers[4], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> nextFiller() {
-    return new FieldSetup<ITraillerLayout>(traillers[5], this);
-  }
-
-  @Override
-  public IFieldSetup<ITraillerLayout> fim_de_registro() {
-    return new FieldSetup<ITraillerLayout>(traillers[6], this);
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+    return visitor.fieldTrailler(row, field);
   }
 }

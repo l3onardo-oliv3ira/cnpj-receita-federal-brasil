@@ -62,33 +62,33 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
   
   @Override
-  public VisitResult fieldHeader(int row, int col, IField field) {
+  public VisitResult fieldHeader(int row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, int col, IField field) {
+  public VisitResult fieldEmpresa(int row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldSocio(int row, int col, IField field) {
+  public VisitResult fieldSocio(int row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldCnae(int row, int col, IField field) {
+  public VisitResult fieldCnae(int row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, int column, IField field) {
+  public VisitResult fieldTrailler(int row, IField field) {
     return VisitResult.CONTINUE;
   }
   
   @Override
-  public VisitResult handleError(int lineNumber, Throwable e) {
-    System.err.println("Erro na linha: " + lineNumber);
+  public VisitResult handleError(int row, Throwable e) {
+    System.err.println("Erro na linha: " + row);
     e.printStackTrace(System.err);
     return VisitResult.TERMINATE;
   }

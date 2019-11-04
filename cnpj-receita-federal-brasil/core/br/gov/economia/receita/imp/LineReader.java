@@ -6,16 +6,16 @@ import java.util.List;
 enum LineReader {
   DEFAULT(){
     @Override
-    public List<String> read(String line, int previous, int size) {
+    public List<String> read(String line, int start, int size) {
       var values = new ArrayList<String>(1);
-      values.add(line.substring(previous, previous + size).trim());
+      values.add(line.substring(start, start + size).trim());
       return values;
     }
   },
   CNAE_SECUNDARIA(){
     @Override
-    public List<String> read(String line, int previous, int size) {
-      String v = line.substring(previous, previous + size);
+    public List<String> read(String line, int start, int size) {
+      String v = line.substring(start, start + size);
       var values = new ArrayList<String>(1);
       do{
         String s = v.substring(0, 7);

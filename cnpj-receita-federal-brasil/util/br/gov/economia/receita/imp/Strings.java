@@ -10,4 +10,13 @@ public final class Strings {
       return defaultIf;
     }
   }
+  
+  public static long toLong(String number, int defaultIf) {
+    try {
+      return Long.parseLong(number);
+    }catch(NumberFormatException e) {
+      return defaultIf;
+    }
+  }
+  
 }

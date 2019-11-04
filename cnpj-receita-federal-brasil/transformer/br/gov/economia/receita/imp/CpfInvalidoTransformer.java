@@ -13,7 +13,9 @@ public class CpfInvalidoTransformer extends AbstractTransformer{
   protected String doTransform(String input) {
     for(int i = 0; i < INVALID_FORMAT.length; i++)
       if (INVALID_FORMAT[i].equalsIgnoreCase(input))
-        return "";
+        return "00000000000";
+    if ("CPF INVALIDO".equals(input))
+      System.out.println("para aqui");
     return input;
   }
 

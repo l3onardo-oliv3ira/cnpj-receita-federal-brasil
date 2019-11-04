@@ -77,32 +77,32 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult fieldHeader(int row, int col, IField field) {
-    return field(row, col, field);
+  public VisitResult fieldHeader(int row, IField field) {
+    return field(row, field);
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, int col, IField field) {
-    return field(row, col, field);
+  public VisitResult fieldEmpresa(int row, IField field) {
+    return field(row, field);
   }
 
   @Override
-  public VisitResult fieldSocio(int row, int col, IField field) {
-    return field(row, col, field);
+  public VisitResult fieldSocio(int row, IField field) {
+    return field(row, field);
   }
 
   @Override
-  public VisitResult fieldCnae(int row, int col, IField field) {
-    return field(row, col, field);
+  public VisitResult fieldCnae(int row, IField field) {
+    return field(row, field);
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, int column, IField field) {
-    return field(row, column, field);
+  public VisitResult fieldTrailler(int row, IField field) {
+    return field(row, field);
   }
   
-  private VisitResult field(int row, int column, IField field) {
-    out.println("arquivo["+ row + "," + column + "]->" + field.toString());
+  private VisitResult field(int row, IField field) {
+    out.println("arquivo["+ row + "," + field.getStart() + "]->" + field.toString());
     return VisitResult.CONTINUE;
   }
 }

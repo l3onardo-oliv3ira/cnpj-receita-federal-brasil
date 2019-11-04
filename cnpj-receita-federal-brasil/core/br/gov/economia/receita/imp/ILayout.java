@@ -4,7 +4,7 @@ import br.gov.economia.receita.IRegisterVisitor;
 
 interface ILayout {
   public VisitResult begin(IRegisterVisitor visitor, int row);
-  public VisitResult process(IRegisterVisitor visitor, int row, String line);
+  public VisitResult visit(IRegisterVisitor visitor, int row, String line);
   public VisitResult end(IRegisterVisitor visitor);
 }
 
@@ -12,7 +12,7 @@ enum SkipLayout implements ILayout {
   INSTANCE;
   
   @Override
-  public VisitResult process(IRegisterVisitor visitor, int row, String line) {
+  public VisitResult visit(IRegisterVisitor visitor, int row, String line) {
     return VisitResult.SKIP;
   }
 

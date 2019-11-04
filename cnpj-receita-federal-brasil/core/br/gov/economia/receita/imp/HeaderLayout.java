@@ -6,55 +6,45 @@ import br.gov.economia.receita.IRegisterVisitor;
 
 class HeaderLayout extends Layout implements IHeaderLayout {
 
-  private final Field[] headers = new Field[] {
-    new Field(1 ,"tipo_do_registro"),
-    new Field(16,"filler"),
-    new Field(11,"nome_do_arquivo"),
-    new Field(8,"data_de_gravacao"),
-    new Field(8,"número_da_remessa"),
-    new Field(1155,"filler"),
-    new Field(1,"fim_de_registro"),
-  };
-
   public HeaderLayout(FileLayout.Builder builder) {
     super(builder);
   }
   
   @Override
   public IFieldSetup<IHeaderLayout> tipo_do_registro() {
-    return new FieldSetup<IHeaderLayout>(headers[0], this);
+    return new FieldSetup<IHeaderLayout>(add("tipo_do_registro", 0, 1), this);
   }
 
   @Override
   public IFieldSetup<IHeaderLayout> filler() {
-    return new FieldSetup<IHeaderLayout>(headers[1], this);
+    return new FieldSetup<IHeaderLayout>(add("filler", 1, 16), this);
   }
 
   @Override
   public IFieldSetup<IHeaderLayout> nome_do_arquivo() {
-    return new FieldSetup<IHeaderLayout>(headers[2], this);
+    return new FieldSetup<IHeaderLayout>(add("nome_do_arquivo", 17, 11), this);
   }
 
   @Override
   public IFieldSetup<IHeaderLayout> data_de_gravacao() {
-    return new FieldSetup<IHeaderLayout>(headers[3], this);
+    return new FieldSetup<IHeaderLayout>(add("data_de_gravacao", 28, 8), this);
   }
 
   @Override
   public IFieldSetup<IHeaderLayout> numero_da_remessa() {
-    return new FieldSetup<IHeaderLayout>(headers[4], this);
+    return new FieldSetup<IHeaderLayout>(add("numero_da_remessa", 36, 8), this);
   }
 
   @Override
-  public IFieldSetup<IHeaderLayout> nextFiller() {
-    return new FieldSetup<IHeaderLayout>(headers[5], this);
+  public IFieldSetup<IHeaderLayout> next_filler() {
+    return new FieldSetup<IHeaderLayout>(add("next_filler", 44, 1155), this);
   }
 
   @Override
   public IFieldSetup<IHeaderLayout> fim_de_registro() {
-    return new FieldSetup<IHeaderLayout>(headers[6], this);
+    return new FieldSetup<IHeaderLayout>(add("fim_de_registro", 1199, 1), this);
   }
-
+  
   @Override
   public VisitResult begin(IRegisterVisitor visitor, int row) {
     return visitor.beginHeader(row);
@@ -66,12 +56,7 @@ class HeaderLayout extends Layout implements IHeaderLayout {
   }
 
   @Override
-  protected final Field[] getFields() {
-    return this.headers;
-  }
-
-  @Override
-  protected VisitResult invokeField(IRegisterVisitor visitor, int row, int col, Field field) {
-    return visitor.fieldHeader(row, col, field);
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+    return visitor.fieldHeader(row, field);
   }
 }

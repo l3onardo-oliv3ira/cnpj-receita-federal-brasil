@@ -9,21 +9,17 @@ import br.gov.economia.receita.ITransformer;
 
 class Field implements IField {
   
-  private final int size;
-  private final String name;
+  private String name;
   private List<String> values;
+  private final int start;
+  private final int size;
   private final LineReader reader;
   private ITransformer transformer = ITransformer.IDENTITY;
-  private boolean bypass;
   
-  public Field(int size, String name) {
-    this(size, name, LineReader.DEFAULT);
-  }
-  
-  public Field(int size, String name, LineReader reader) {
-    this.size = size;
+  Field(String name, int start, int size, LineReader reader) {
     this.name = name;
-    this.bypass = true;
+    this.start = start;
+    this.size = size;
     this.reader = reader;
   }
   
@@ -35,6 +31,10 @@ class Field implements IField {
   @Override
   public final String getValue() {
     return this.values == null ? "" : this.values.get(0);
+  }
+  
+  public final int getStart() {
+    return this.start;
   }
   
   public final int getSize() {
@@ -56,26 +56,19 @@ class Field implements IField {
     return this.name + ": " + getValue();
   }
   
+  final void setName(String name) {
+    this.name = name;
+  }
+  
   final void setTransformer(ITransformer transformer) {
-    if (!isBypass()) {
-      this.transformer = transformer;
-    }
+    this.transformer = transformer;
   }
 
-  final int read(String line, int previous) {
-    List<String> output = reader.read(line, previous, size);
+  final void read(String line) {
+    List<String> output = reader.read(line, start, size);
     List<String> transf = new ArrayList<String>(output.size());
     for(String v: output)
       transf.add(transformer.transform(v, this.name));
     this.values = transf;
-    return previous + this.size;
-  }
-
-  final void setBypass(boolean bypass) {
-    this.bypass = bypass;
-  }
-  
-  final boolean isBypass() {
-    return bypass;
   }
 }

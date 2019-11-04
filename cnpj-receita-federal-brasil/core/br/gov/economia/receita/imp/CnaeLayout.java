@@ -7,53 +7,43 @@ import br.gov.economia.receita.imp.FileLayout.Builder;
 
 class CnaeLayout extends Layout implements ICnaeLayout {
 
-  private final Field[] cnaes = new Field[] {
-    new Field(1, "tipo_do_registro"),
-    new Field(1, "indicador_full_diario"),
-    new Field(1, "tipo_de_atualizacao"),
-    new Field(14, "cnpj"),
-    new Field(693, "cnae_secundaria", LineReader.CNAE_SECUNDARIA),
-    new Field(489, "filler"),
-    new Field(1, "fim_registro")
-  };
-  
   public CnaeLayout(Builder builder) {
     super(builder);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> tipo_do_registro() {
-    return new FieldSetup<ICnaeLayout>(cnaes[0], this);
+    return new FieldSetup<ICnaeLayout>(add("tipo_do_registro", 0, 1), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> indicador_full_diario() {
-    return new FieldSetup<ICnaeLayout>(cnaes[1], this);
+    return new FieldSetup<ICnaeLayout>(add("indicador_full_diario", 1, 1), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> tipo_de_atualizacao() {
-    return new FieldSetup<ICnaeLayout>(cnaes[2], this);
+    return new FieldSetup<ICnaeLayout>(add("tipo_de_atualizacao", 2, 1), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> cnpj() {
-    return new FieldSetup<ICnaeLayout>(cnaes[3], this);
+    return new FieldSetup<ICnaeLayout>(add("cnpj", 3, 14), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> cnae_secundaria() {
-    return new FieldSetup<ICnaeLayout>(cnaes[4], this);
+    return new FieldSetup<ICnaeLayout>(add("cnae_secundaria", 17, 693), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> filler() {
-    return new FieldSetup<ICnaeLayout>(cnaes[5], this);
+    return new FieldSetup<ICnaeLayout>(add("filler", 710, 489), this);
   }
 
   @Override
   public IFieldSetup<ICnaeLayout> fim_registro() {
-    return new FieldSetup<ICnaeLayout>(cnaes[6], this);
+    return new FieldSetup<ICnaeLayout>(add("fim_registro", 1199, 1), this);
   }
 
   @Override
@@ -67,12 +57,7 @@ class CnaeLayout extends Layout implements ICnaeLayout {
   }
 
   @Override
-  protected final Field[] getFields() {
-    return this.cnaes;
-  }
-
-  @Override
-  protected VisitResult invokeField(IRegisterVisitor visitor, int row, int col, Field field) {
-    return visitor.fieldCnae(row, col, field);
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+    return visitor.fieldCnae(row, field);
   }
 }

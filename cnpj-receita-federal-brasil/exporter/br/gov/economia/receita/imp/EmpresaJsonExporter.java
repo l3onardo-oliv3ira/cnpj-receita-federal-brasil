@@ -61,7 +61,7 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, int col, IField field) {
+  public VisitResult fieldEmpresa(int row, IField field) {
     writer.println(',');
     writer.print(" \"" + field.getName() + "\":");
     if (!field.isMultivalued())

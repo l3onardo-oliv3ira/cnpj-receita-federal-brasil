@@ -15,8 +15,21 @@ class FieldSetup<T> implements IFieldSetup<T> {
 
   @Override
   public T setup(ITransformer transformer) {
-    field.setBypass(false);
     field.setTransformer(transformer);
     return this.layout;
   }
+
+  @Override
+  public T setup(String name) {
+    field.setName(name);
+    return this.layout;
+  }
+
+  @Override
+  public T setup(String name, ITransformer transformer) {
+    field.setName(name);
+    field.setTransformer(transformer);
+    return this.layout;
+  }
+
 }

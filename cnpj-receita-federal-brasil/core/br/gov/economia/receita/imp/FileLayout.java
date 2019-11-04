@@ -86,13 +86,14 @@ public final class FileLayout implements Runnable{
   public void run() {
     File[] files = input.isFile() ? new File[] {input} : input.listFiles((File dir, String name) -> !name.startsWith("."));
     try {
-      Charset charset = Charset.forName("ISO-8859-1");
+      Charset charset = Charset.forName("iso-8859-1");
       
       visitor.start();
       
       for(int i = 0; i < files.length; i++) {
         try(var buffer = new BufferedReader(new FileReader(files[i], charset), bufferSize)){
-          iterate(buffer);
+          if (iterate(buffer) == VisitResult.TERMINATE)
+            break;
         } catch (IOException e) {
           e.printStackTrace();
           continue;
@@ -115,7 +116,7 @@ public final class FileLayout implements Runnable{
     }
   }
 
-  private void iterate(BufferedReader buffer){
+  private VisitResult iterate(BufferedReader buffer){
     String line = null;
    
     do {
@@ -123,13 +124,13 @@ public final class FileLayout implements Runnable{
         line = buffer.readLine();
       } catch (IOException e) {
         VisitResult vr = visitor.handleError(row.get(), e);
-        if (VisitResult.TERMINATE != vr)
-          continue;
-        break;
+        if (VisitResult.TERMINATE == vr)
+          return vr;
+        continue;
       }
       
       if (line == null)
-        break;
+        return VisitResult.CONTINUE;
       
       row.incrementAndGet();
 
@@ -142,15 +143,15 @@ public final class FileLayout implements Runnable{
       if (VisitResult.SKIP == vr)
         continue;
       if (VisitResult.TERMINATE == vr)
-        break;
-      vr = layout.process(visitor, row.get(), line);
+        return vr;
+      vr = layout.visit(visitor, row.get(), line);
       if (VisitResult.SKIP == vr)
         continue;
       if (VisitResult.TERMINATE == vr)
-        break;
+        return vr;
       vr = layout.end(visitor);
       if (VisitResult.TERMINATE == vr)
-        break;
+        return vr;
     }while(true);
   }
 }

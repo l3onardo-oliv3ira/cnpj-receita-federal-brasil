@@ -36,7 +36,7 @@ public final class Step01 {
         .nome_do_arquivo().setup()
         .data_de_gravacao().setup()
         .numero_da_remessa().setup()
-        .nextFiller().setup()
+        .next_filler().setup()
         .fim_de_registro().setup()
         .builder().build(input);
     l2.run();

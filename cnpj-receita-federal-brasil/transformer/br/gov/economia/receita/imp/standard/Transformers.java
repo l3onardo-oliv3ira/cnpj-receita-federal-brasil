@@ -11,7 +11,7 @@ public enum Transformers implements ITransformer {
   LOWERCASE(new LowercaseTransformer()),
   DATE(new DateTransformer()),
   BOOL(new BooleanTransformer());
-
+  
   private ITransformer transformer;
   
   Transformers(ITransformer transformer) {

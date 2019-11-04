@@ -6,6 +6,7 @@ public interface ITraillerLayout extends IBuilderProvider {
   public IFieldSetup<ITraillerLayout> total_de_registro_t1();
   public IFieldSetup<ITraillerLayout> total_de_registro_t2();
   public IFieldSetup<ITraillerLayout> total_de_registros_t3();
-  public IFieldSetup<ITraillerLayout> nextFiller();
+  public IFieldSetup<ITraillerLayout> total_de_registros();
+  public IFieldSetup<ITraillerLayout> next_filler();
   public IFieldSetup<ITraillerLayout> fim_de_registro();
 }

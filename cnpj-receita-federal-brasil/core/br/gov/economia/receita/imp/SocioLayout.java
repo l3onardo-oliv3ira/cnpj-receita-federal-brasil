@@ -7,113 +7,93 @@ import br.gov.economia.receita.imp.FileLayout.Builder;
 
 class SocioLayout extends Layout implements ISocioLayout{
 
-  private final Field[] socios = new Field[] {
-    new Field(1,"tipo_de_registro"),
-    new Field(1,"indicador_full_diario"),
-    new Field(1,"tipo_de_atualizacao"),
-    new Field(14,"cnpj"),
-    new Field(1,"identificador_de_socio"),
-    new Field(150,"nome_socio_pf_ou_razao_social_pj"),
-    new Field(14,"cnpj_ou_cpf_do_sócio"),
-    new Field(2,"codigo_qualificacao_socio"),
-    new Field(5,"percentual_capital_social"),
-    new Field(8,"data_entrada_sociedade"),
-    new Field(3,"codigo_pais"),
-    new Field(70,"nome_pais_socio"),
-    new Field(11,"cpf_representante_legal"),
-    new Field(60,"nome_representante"),
-    new Field(2,"codigo_qualificacao_representante_legal"),
-    new Field(856,"filler"),
-    new Field(1,"fim_registro")
-  };
-  
   public SocioLayout(Builder builder) {
     super(builder);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> tipo_de_registro() {
-    return new FieldSetup<ISocioLayout>(socios[0], this);
+    return new FieldSetup<ISocioLayout>(add("tipo_de_registro", 0, 1), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> indicador_full_diario() {
-    return new FieldSetup<ISocioLayout>(socios[1], this);
+    return new FieldSetup<ISocioLayout>(add("indicador_full_diario", 1, 1), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> tipo_de_atualizacao() {
-    return new FieldSetup<ISocioLayout>(socios[2], this);
+    return new FieldSetup<ISocioLayout>(add("tipo_de_atualizacao", 2, 1), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> cnpj() {
-    return new FieldSetup<ISocioLayout>(socios[3], this);
+    return new FieldSetup<ISocioLayout>(add("cnpj", 3, 14), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> identificador_de_socio() {
-    return new FieldSetup<ISocioLayout>(socios[4], this);
+    return new FieldSetup<ISocioLayout>(add("identificador_de_socio", 17, 1), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> nome_socio_pf_ou_razao_social_pj() {
-    return new FieldSetup<ISocioLayout>(socios[5], this);
+    return new FieldSetup<ISocioLayout>(add("nome_socio_pf_ou_razao_social_pj", 18, 150), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> cnpj_ou_cpf_do_sócio() {
-    return new FieldSetup<ISocioLayout>(socios[6], this);
+    return new FieldSetup<ISocioLayout>(add("cnpj_ou_cpf_do_sócio", 168, 14), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> codigo_qualificacao_socio() {
-    return new FieldSetup<ISocioLayout>(socios[7], this);
+    return new FieldSetup<ISocioLayout>(add("codigo_qualificacao_socio", 182, 2), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> percentual_capital_social() {
-    return new FieldSetup<ISocioLayout>(socios[8], this);
+    return new FieldSetup<ISocioLayout>(add("percentual_capital_social", 184, 5), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> data_entrada_sociedade() {
-    return new FieldSetup<ISocioLayout>(socios[9], this);
+    return new FieldSetup<ISocioLayout>(add("data_entrada_sociedade", 189, 8), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> codigo_pais() {
-    return new FieldSetup<ISocioLayout>(socios[10], this);
+    return new FieldSetup<ISocioLayout>(add("codigo_pais", 197, 3), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> nome_pais_socio() {
-    return new FieldSetup<ISocioLayout>(socios[11], this);
+    return new FieldSetup<ISocioLayout>(add("nome_pais_socio", 200, 70), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> cpf_representante_legal() {
-    return new FieldSetup<ISocioLayout>(socios[12], this);
+    return new FieldSetup<ISocioLayout>(add("cpf_representante_legal", 270, 11), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> nome_representante() {
-    return new FieldSetup<ISocioLayout>(socios[13], this);
+    return new FieldSetup<ISocioLayout>(add("nome_representante", 281, 60), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> codigo_qualificacao_representante_legal() {
-    return new FieldSetup<ISocioLayout>(socios[14], this);
+    return new FieldSetup<ISocioLayout>(add("codigo_qualificacao_representante_legal", 341, 2), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> filler() {
-    return new FieldSetup<ISocioLayout>(socios[15], this);
+    return new FieldSetup<ISocioLayout>(add("filler", 343, 885), this);
   }
 
   @Override
   public IFieldSetup<ISocioLayout> fim_registro() {
-    return new FieldSetup<ISocioLayout>(socios[16], this);
+    return new FieldSetup<ISocioLayout>(add("fim_registro", 1199, 1), this);
   }
 
   @Override
@@ -127,12 +107,7 @@ class SocioLayout extends Layout implements ISocioLayout{
   }
 
   @Override
-  protected final Field[] getFields() {
-    return this.socios;
-  }
-
-  @Override
-  protected VisitResult invokeField(IRegisterVisitor visitor, int row, int col, Field field) {
-    return visitor.fieldSocio(row, col, field);
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+    return visitor.fieldSocio(row, field);
   }
 }

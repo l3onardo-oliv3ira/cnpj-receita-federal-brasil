@@ -17,7 +17,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldHeader(int row, int col, IField field) {
+  public VisitResult fieldHeader(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -32,7 +32,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldSocio(int row, int col, IField field) {
+  public VisitResult fieldSocio(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -47,7 +47,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldCnae(int row, int col, IField field) {
+  public VisitResult fieldCnae(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -62,7 +62,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, int column, IField field) {
+  public VisitResult fieldTrailler(int row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -72,7 +72,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult handleError(int lineNumber, Throwable e) {
+  public VisitResult handleError(int row, Throwable e) {
     e.printStackTrace(System.err);
     return VisitResult.TERMINATE;
   }

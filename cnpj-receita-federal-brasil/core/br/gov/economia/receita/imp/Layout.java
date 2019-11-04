@@ -1,14 +1,20 @@
 package br.gov.economia.receita.imp;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import br.gov.economia.receita.IBuilderProvider;
 import br.gov.economia.receita.IRegisterVisitor;
 
 abstract class Layout implements IBuilderProvider, ILayout{
 
   private FileLayout.Builder builder;
-  protected boolean enabled = false;
+  
+  private Map<String, Field> fields = new LinkedHashMap<>();
+  
+  private boolean enabled = false;
 
-  public Layout( FileLayout.Builder builder) {
+  public Layout(FileLayout.Builder builder) {
     this.builder = builder;
   }
 
@@ -27,33 +33,35 @@ abstract class Layout implements IBuilderProvider, ILayout{
     return enabled;
   }
   
-  protected abstract Field[] getFields();
-  
-  protected abstract VisitResult invokeField(IRegisterVisitor visitor, int row, int col, Field field);
-  
   @Override
-  public final VisitResult process(IRegisterVisitor visitor, int row, String line) {
-    int col, previous = 0;
-    Field[] fields = getFields();
-    for(int i = 0; i < fields.length; i++) {
-      Field f = fields[i];
-      if (f.isBypass()) {
-        previous = previous + f.getSize();
-        continue;
-      }
+  public final VisitResult visit(IRegisterVisitor visitor, int row, String line) {
+    for(Field f: fields.values()) {
       VisitResult vr;
-      col = previous;
       try {
-        previous = f.read(line, col);
+        f.read(line);
       }catch(Exception e) {
         vr = visitor.handleError(row, e);
         if (VisitResult.CONTINUE != vr)
           return vr;
       }
-      vr = invokeField(visitor, row, col, f);
+      vr = visitField(visitor, f, row);
       if (VisitResult.CONTINUE != vr)
         return vr;
     }
     return VisitResult.CONTINUE;
   };
+  
+  protected final Field add(String name, int start, int size) {
+    return add(name, start, size, LineReader.DEFAULT);
+  }
+  
+  protected final Field add(String name, int start, int size, LineReader reader) {
+    if (fields.containsKey(name))
+      return fields.get(name);
+    Field field = new Field(name, start, size, reader);
+    fields.put(name, field);
+    return field;
+  }
+  
+  protected abstract VisitResult visitField(IRegisterVisitor visitor, Field field, int row);
 }
