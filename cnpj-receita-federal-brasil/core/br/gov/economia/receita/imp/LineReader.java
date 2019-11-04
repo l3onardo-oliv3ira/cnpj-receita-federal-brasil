@@ -1,34 +1,43 @@
 package br.gov.economia.receita.imp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 enum LineReader {
   DEFAULT(){
     @Override
-    public List<String> read(String line, int start, int size) {
-      var values = new ArrayList<String>(1);
-      values.add(line.substring(start, start + size).trim());
-      return values;
+    public void read(String line, int start, int size, List<String> output) {
+      output.add(line.substring(start, start + size).trim());
     }
   },
-  CNAE_SECUNDARIA(){
+  CNAE_SECUNDARIA(true){
     @Override
-    public List<String> read(String line, int start, int size) {
+    public void read(String line, int start, int size, List<String> output) {
       String v = line.substring(start, start + size);
-      var values = new ArrayList<String>(1);
       do{
         String s = v.substring(0, 7);
         if (!"0000000".equals(s)) {
-          values.add(s.trim());
+          output.add(s.trim());
           v = v.substring(7);
           continue;
         }
         break;
-      }while(true);
-      return values;
+      }while(v.length() <= 7);
     }
   };
+  
+  private boolean multiValued;
+  
+  LineReader(){
+    this(false);
+  }
+  
+  LineReader(boolean multiValued){
+    this.multiValued = multiValued;
+  }
+  
+  public final boolean isMultiValued() {
+    return this.multiValued;
+  }
 
-  public abstract List<String> read(String line, int previous, int size);
+  public abstract void read(String line, int previous, int size, List<String> output);
 }

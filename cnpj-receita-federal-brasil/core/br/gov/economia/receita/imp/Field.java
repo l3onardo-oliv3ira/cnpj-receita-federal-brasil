@@ -10,11 +10,11 @@ import br.gov.economia.receita.ITransformer;
 class Field implements IField {
   
   private String name;
-  private List<String> values;
   private final int start;
   private final int size;
   private final LineReader reader;
   private ITransformer transformer = ITransformer.IDENTITY;
+  private List<String> values = new ArrayList<>(1);
   
   Field(String name, int start, int size, LineReader reader) {
     this.name = name;
@@ -30,7 +30,7 @@ class Field implements IField {
   
   @Override
   public final String getValue() {
-    return this.values == null ? "" : this.values.get(0);
+    return this.values.size() == 0 ? "" : this.values.get(0);
   }
   
   public final int getStart() {
@@ -48,7 +48,7 @@ class Field implements IField {
 
   @Override
   public final boolean isMultivalued() {
-    return this.values != null && this.values.size() > 1;
+    return reader.isMultiValued();
   }
   
   @Override
@@ -65,10 +65,11 @@ class Field implements IField {
   }
 
   final void read(String line) {
-    List<String> output = reader.read(line, start, size);
-    List<String> transf = new ArrayList<String>(output.size());
-    for(String v: output)
-      transf.add(transformer.transform(v, this.name));
-    this.values = transf;
+    values.clear();
+    reader.read(line, start, size, values);
+    int size = values.size();
+    for(int i = 0; i < size; i++) {
+      values.set(i, transformer.transform(values.get(i), name));
+    }
   }
 }

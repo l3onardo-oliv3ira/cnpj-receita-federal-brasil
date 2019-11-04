@@ -33,7 +33,7 @@ class CnaeLayout extends Layout implements ICnaeLayout {
 
   @Override
   public IFieldSetup<ICnaeLayout> cnae_secundaria() {
-    return new FieldSetup<ICnaeLayout>(add("cnae_secundaria", 17, 693), this);
+    return new FieldSetup<ICnaeLayout>(add("cnae_secundaria", 17, 693, LineReader.CNAE_SECUNDARIA), this);
   }
 
   @Override

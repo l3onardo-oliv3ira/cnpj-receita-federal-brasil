@@ -6,12 +6,12 @@ import java.io.IOException;
 import br.gov.economia.receita.IField;
 import br.gov.economia.receita.imp.adapter.SqlVisitorAdapter;
 
-public class EmpresaSqlExporter extends EmpresaVisitor {
+public class CnaeSqlExporter extends CnaeVisitor {
 
   private final SqlVisitorAdapter adapter;
   
-  public EmpresaSqlExporter(File output) throws IOException {
-    this.adapter = new SqlVisitorAdapter("empresa", output);
+  public CnaeSqlExporter(File output) throws IOException {
+    this.adapter = new SqlVisitorAdapter("cnae", output);
   }
   
   @Override
@@ -25,31 +25,31 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult beginEmpresa(long row) {
+  public VisitResult beginCnae(long row) {
     adapter.beginData(row);
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldEmpresa(long row, IField field) {
+  public VisitResult fieldCnae(long row, IField field) {
     adapter.data(row, field);
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult endEmpresa() {
+  public VisitResult endCnae() {
     adapter.endData();
     return VisitResult.CONTINUE;
   }
 
   public static void main(String[] args) throws IOException {
     File input  = new File("./input/K3241.K03200DV.D90805.L00002");
-    File output = new File("./output/empresa.sql");
+    File output = new File("./output/cnae.sql");
     FileLayout layout = LayoutProvider
-        .empresaLayout()
-        .build(input, new EmpresaSqlExporter(output));
+        .cnaeLayout()
+        .build(input, new CnaeSqlExporter(output));
     layout.run();
     
-    System.out.println("Use o comando: [Get-Content .\\empresa.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
+    System.out.println("Use o comando: [Get-Content .\\cnae.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }
