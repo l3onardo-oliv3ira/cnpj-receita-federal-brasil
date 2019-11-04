@@ -97,7 +97,7 @@ class SocioLayout extends Layout implements ISocioLayout{
   }
 
   @Override
-  public VisitResult begin(IRegisterVisitor visitor, int row) {
+  public VisitResult begin(IRegisterVisitor visitor, long row) {
     return visitor.beginSocio(row);
   }
 
@@ -107,7 +107,7 @@ class SocioLayout extends Layout implements ISocioLayout{
   }
 
   @Override
-  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, long row) {
     return visitor.fieldSocio(row, field);
   }
 }

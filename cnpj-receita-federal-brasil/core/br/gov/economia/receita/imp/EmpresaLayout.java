@@ -211,7 +211,7 @@ class EmpresaLayout extends Layout implements IEmpresaLayout {
   }
 
   @Override
-  public VisitResult begin(IRegisterVisitor visitor, int row) {
+  public VisitResult begin(IRegisterVisitor visitor, long row) {
     return visitor.beginEmpresa(row);
   }
 
@@ -221,7 +221,7 @@ class EmpresaLayout extends Layout implements IEmpresaLayout {
   }
 
   @Override
-  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, long row) {
     return visitor.fieldEmpresa(row, field);
   }
 }

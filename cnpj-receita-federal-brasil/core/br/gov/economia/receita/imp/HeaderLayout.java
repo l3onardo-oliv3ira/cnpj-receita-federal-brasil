@@ -46,7 +46,7 @@ class HeaderLayout extends Layout implements IHeaderLayout {
   }
   
   @Override
-  public VisitResult begin(IRegisterVisitor visitor, int row) {
+  public VisitResult begin(IRegisterVisitor visitor, long row) {
     return visitor.beginHeader(row);
   }
 
@@ -56,7 +56,7 @@ class HeaderLayout extends Layout implements IHeaderLayout {
   }
 
   @Override
-  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, long row) {
     return visitor.fieldHeader(row, field);
   }
 }

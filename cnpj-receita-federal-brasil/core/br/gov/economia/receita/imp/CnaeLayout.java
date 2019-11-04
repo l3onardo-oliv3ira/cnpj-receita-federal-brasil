@@ -47,7 +47,7 @@ class CnaeLayout extends Layout implements ICnaeLayout {
   }
 
   @Override
-  public VisitResult begin(IRegisterVisitor visitor, int row) {
+  public VisitResult begin(IRegisterVisitor visitor, long row) {
     return visitor.beginCnae(row);
   }
 
@@ -57,7 +57,7 @@ class CnaeLayout extends Layout implements ICnaeLayout {
   }
 
   @Override
-  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, long row) {
     return visitor.fieldCnae(row, field);
   }
 }

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import br.gov.economia.receita.ICnaeLayout;
 import br.gov.economia.receita.IEmpresaLayout;
@@ -69,7 +70,7 @@ public final class FileLayout implements Runnable{
   private int bufferSize;
   private IRegisterVisitor visitor;
   private Builder builder;
-  private AtomicInteger row = new AtomicInteger(0);
+  private AtomicLong row = new AtomicLong(0);
   
   private FileLayout(File input, int bufferSize, IRegisterVisitor visitor, Builder builder) {
     this.input = input;
@@ -78,7 +79,7 @@ public final class FileLayout implements Runnable{
     this.builder = builder;
   }
 
-  public int getCurrentRow() {
+  public long getCurrentRow() {
     return this.row.get();
   }
   

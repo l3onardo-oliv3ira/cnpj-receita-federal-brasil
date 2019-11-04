@@ -52,7 +52,7 @@ class TraillerLayout extends Layout implements ITraillerLayout{
   }
   
   @Override
-  public VisitResult begin(IRegisterVisitor visitor, int row) {
+  public VisitResult begin(IRegisterVisitor visitor, long row) {
     return visitor.beginTrailler(row);
   }
 
@@ -62,7 +62,7 @@ class TraillerLayout extends Layout implements ITraillerLayout{
   }
 
   @Override
-  protected VisitResult visitField(IRegisterVisitor visitor, Field field, int row) {
+  protected VisitResult visitField(IRegisterVisitor visitor, Field field, long row) {
     return visitor.fieldTrailler(row, field);
   }
 }

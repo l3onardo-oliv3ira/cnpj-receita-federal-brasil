@@ -16,16 +16,16 @@ import br.gov.economia.receita.IField;
 
 public class EmpresaJsonExporter extends EmpresaVisitor {
 
-  private final int max;
+  private final long max;
   private boolean comma = false;
   private final PrintWriter writer;
-  private int total = 0;
+  private long total = 0;
   
   public EmpresaJsonExporter(PrintWriter writer) {
-    this(writer, Integer.MAX_VALUE);
+    this(writer, Long.MAX_VALUE);
   }
   
-  public EmpresaJsonExporter(PrintWriter writer, int max) {
+  public EmpresaJsonExporter(PrintWriter writer, long max) {
     this.writer = writer;
     this.max = max;
     this.total = 0;
@@ -42,7 +42,7 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult beginEmpresa(int row) {
+  public VisitResult beginEmpresa(long row) {
     if (comma)
       writer.println(',');
     writer.println('{');
@@ -61,7 +61,7 @@ public class EmpresaJsonExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, IField field) {
+  public VisitResult fieldEmpresa(long row, IField field) {
     writer.println(',');
     writer.print(" \"" + field.getName() + "\":");
     if (!field.isMultivalued())

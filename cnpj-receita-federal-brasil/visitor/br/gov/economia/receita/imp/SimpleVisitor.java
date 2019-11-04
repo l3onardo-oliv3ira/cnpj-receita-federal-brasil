@@ -12,7 +12,7 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   public void end() {}
   
   @Override
-  public VisitResult beginHeader(int row) {
+  public VisitResult beginHeader(long row) {
     return VisitResult.CONTINUE;
   }
 
@@ -22,7 +22,7 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
 
   @Override
-  public VisitResult beginEmpresa(int row) {
+  public VisitResult beginEmpresa(long row) {
     return VisitResult.CONTINUE;
   }
 
@@ -32,7 +32,7 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
 
   @Override
-  public VisitResult beginSocio(int row) {
+  public VisitResult beginSocio(long row) {
     return VisitResult.CONTINUE;
   }
 
@@ -42,7 +42,7 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
 
   @Override
-  public VisitResult beginCnae(int row) {
+  public VisitResult beginCnae(long row) {
     return VisitResult.CONTINUE;
   }
 
@@ -52,7 +52,7 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
 
   @Override
-  public VisitResult beginTrailler(int row) {
+  public VisitResult beginTrailler(long row) {
     return VisitResult.CONTINUE;
   }
 
@@ -62,32 +62,32 @@ public abstract class SimpleVisitor implements IRegisterVisitor {
   }
   
   @Override
-  public VisitResult fieldHeader(int row, IField field) {
+  public VisitResult fieldHeader(long row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, IField field) {
+  public VisitResult fieldEmpresa(long row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldSocio(int row, IField field) {
+  public VisitResult fieldSocio(long row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldCnae(int row, IField field) {
+  public VisitResult fieldCnae(long row, IField field) {
     return VisitResult.CONTINUE;
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, IField field) {
+  public VisitResult fieldTrailler(long row, IField field) {
     return VisitResult.CONTINUE;
   }
   
   @Override
-  public VisitResult handleError(int row, Throwable e) {
+  public VisitResult handleError(long row, Throwable e) {
     System.err.println("Erro na linha: " + row);
     e.printStackTrace(System.err);
     return VisitResult.TERMINATE;

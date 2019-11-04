@@ -17,7 +17,7 @@ public class SysoutVisitor extends SimpleVisitor{
   }
   
   @Override
-  public VisitResult beginHeader(int row) {
+  public VisitResult beginHeader(long row) {
     out.println("Header iniciando na linha: " + row);
     return VisitResult.CONTINUE;
   }
@@ -29,7 +29,7 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult beginEmpresa(int row) {
+  public VisitResult beginEmpresa(long row) {
     out.println("Empresa iniciando em: " + row);
     return VisitResult.CONTINUE;
   }
@@ -41,7 +41,7 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult beginSocio(int row) {
+  public VisitResult beginSocio(long row) {
     out.println("Socio iniciando em: " + row);
     return VisitResult.CONTINUE;
   }
@@ -53,7 +53,7 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult beginCnae(int row) {
+  public VisitResult beginCnae(long row) {
     out.println("Cnae iniciando em: " + row);
     return VisitResult.CONTINUE;
   }
@@ -65,7 +65,7 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult beginTrailler(int row) {
+  public VisitResult beginTrailler(long row) {
     out.println("Trailler iniciando em: " + row);
     return VisitResult.CONTINUE;
   }
@@ -77,31 +77,31 @@ public class SysoutVisitor extends SimpleVisitor{
   }
 
   @Override
-  public VisitResult fieldHeader(int row, IField field) {
+  public VisitResult fieldHeader(long row, IField field) {
     return field(row, field);
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, IField field) {
+  public VisitResult fieldEmpresa(long row, IField field) {
     return field(row, field);
   }
 
   @Override
-  public VisitResult fieldSocio(int row, IField field) {
+  public VisitResult fieldSocio(long row, IField field) {
     return field(row, field);
   }
 
   @Override
-  public VisitResult fieldCnae(int row, IField field) {
+  public VisitResult fieldCnae(long row, IField field) {
     return field(row, field);
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, IField field) {
+  public VisitResult fieldTrailler(long row, IField field) {
     return field(row, field);
   }
   
-  private VisitResult field(int row, IField field) {
+  private VisitResult field(long row, IField field) {
     out.println("arquivo["+ row + "," + field.getStart() + "]->" + field.toString());
     return VisitResult.CONTINUE;
   }

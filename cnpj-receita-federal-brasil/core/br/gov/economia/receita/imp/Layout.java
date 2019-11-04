@@ -34,7 +34,7 @@ abstract class Layout implements IBuilderProvider, ILayout{
   }
   
   @Override
-  public final VisitResult visit(IRegisterVisitor visitor, int row, String line) {
+  public final VisitResult visit(IRegisterVisitor visitor, long row, String line) {
     for(Field f: fields.values()) {
       VisitResult vr;
       try {
@@ -63,5 +63,5 @@ abstract class Layout implements IBuilderProvider, ILayout{
     return field;
   }
   
-  protected abstract VisitResult visitField(IRegisterVisitor visitor, Field field, int row);
+  protected abstract VisitResult visitField(IRegisterVisitor visitor, Field field, long row);
 }

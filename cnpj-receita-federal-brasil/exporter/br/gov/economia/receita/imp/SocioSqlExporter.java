@@ -42,7 +42,7 @@ public class SocioSqlExporter extends SocioVisitor {
   }
 
   @Override
-  public VisitResult beginSocio(int row) {
+  public VisitResult beginSocio(long row) {
     values.setLength(0);
     writer.print("insert into socio (id");
     values.append(row);
@@ -60,7 +60,7 @@ public class SocioSqlExporter extends SocioVisitor {
   }
 
   @Override
-  public VisitResult fieldSocio(int row, IField field) {
+  public VisitResult fieldSocio(long row, IField field) {
     writer.print(',');
     writer.print(field.getName());
     values.append(',').append(field.getValue());

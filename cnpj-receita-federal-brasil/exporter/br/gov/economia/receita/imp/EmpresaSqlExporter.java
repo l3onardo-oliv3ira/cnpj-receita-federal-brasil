@@ -43,7 +43,7 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult beginEmpresa(int row) {
+  public VisitResult beginEmpresa(long row) {
     values.setLength(0);
     writer.print("insert into empresa (id");
     values.append(row);
@@ -61,7 +61,7 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
   }
 
   @Override
-  public VisitResult fieldEmpresa(int row, IField field) {
+  public VisitResult fieldEmpresa(long row, IField field) {
     writer.print(',');
     writer.print(field.getName());
     values.append(',').append(field.getValue());
@@ -106,8 +106,7 @@ public class EmpresaSqlExporter extends EmpresaVisitor {
           .opcao_pelo_mei()                   .setup("c34",pipe(new OpcaoMeiTransformer(), BOOL))
           .situacao_especial()                .setup("c35",SQUOTE)
           .data_situacao_especial()           .setup("c36",pipe(ZEROTRIM, DATE, SQUOTE))
-      .builder().build(new File("./input/"), new EmpresaSqlExporter(output, 100));
-      layout.run();
+      .builder().build(new File("./input/"), new EmpresaSqlExporter(output, 2000));
     }
     System.out.println("Use o comando: [Get-Content .\\empresa.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
   }

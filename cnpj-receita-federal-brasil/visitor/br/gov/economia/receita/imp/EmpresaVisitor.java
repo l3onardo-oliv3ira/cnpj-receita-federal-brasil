@@ -12,12 +12,12 @@ import br.gov.economia.receita.IRegisterVisitor;
 public abstract class EmpresaVisitor implements IRegisterVisitor{
 
   @Override
-  public VisitResult beginHeader(int row) {
+  public VisitResult beginHeader(long row) {
     return VisitResult.SKIP;
   }
 
   @Override
-  public VisitResult fieldHeader(int row, IField field) {
+  public VisitResult fieldHeader(long row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -27,12 +27,12 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult beginSocio(int row) {
+  public VisitResult beginSocio(long row) {
     return VisitResult.SKIP;
   }
 
   @Override
-  public VisitResult fieldSocio(int row, IField field) {
+  public VisitResult fieldSocio(long row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -42,12 +42,12 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult beginCnae(int row) {
+  public VisitResult beginCnae(long row) {
     return VisitResult.SKIP;
   }
 
   @Override
-  public VisitResult fieldCnae(int row, IField field) {
+  public VisitResult fieldCnae(long row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -57,12 +57,12 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult beginTrailler(int row) {
+  public VisitResult beginTrailler(long row) {
     return VisitResult.SKIP;
   }
 
   @Override
-  public VisitResult fieldTrailler(int row, IField field) {
+  public VisitResult fieldTrailler(long row, IField field) {
     return VisitResult.SKIP;
   }
 
@@ -72,7 +72,7 @@ public abstract class EmpresaVisitor implements IRegisterVisitor{
   }
 
   @Override
-  public VisitResult handleError(int row, Throwable e) {
+  public VisitResult handleError(long row, Throwable e) {
     e.printStackTrace(System.err);
     return VisitResult.TERMINATE;
   }
