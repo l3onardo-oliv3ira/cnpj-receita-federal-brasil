@@ -39,5 +39,5 @@ enum LineReader {
     return this.multiValued;
   }
 
-  public abstract void read(String line, int previous, int size, List<String> output);
+  public abstract void read(String line, int start, int size, List<String> output);
 }

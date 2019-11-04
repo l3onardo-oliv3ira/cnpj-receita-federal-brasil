@@ -8,9 +8,10 @@ import br.gov.economia.receita.IRegisterVisitor;
 
 abstract class Layout implements IBuilderProvider, ILayout{
 
-  private FileLayout.Builder builder;
+  private final FileLayout.Builder builder;
   
-  private Map<String, Field> fields = new LinkedHashMap<>();
+  /** LinkedHashMap is better than HashMap when we need to iterate over values */
+  private final Map<String, Field> fields = new LinkedHashMap<>();
   
   private boolean enabled = false;
 

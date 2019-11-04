@@ -1,5 +1,7 @@
 package br.gov.economia.receita.imp;
 
+import static br.gov.economia.receita.imp.LineReader.CNAE_SECUNDARIA;
+
 import br.gov.economia.receita.ICnaeLayout;
 import br.gov.economia.receita.IFieldSetup;
 import br.gov.economia.receita.IRegisterVisitor;
@@ -33,7 +35,7 @@ class CnaeLayout extends Layout implements ICnaeLayout {
 
   @Override
   public IFieldSetup<ICnaeLayout> cnae_secundaria() {
-    return new FieldSetup<ICnaeLayout>(add("cnae_secundaria", 17, 693, LineReader.CNAE_SECUNDARIA), this);
+    return new FieldSetup<ICnaeLayout>(add("cnae_secundaria", 17, 693, CNAE_SECUNDARIA), this);
   }
 
   @Override
