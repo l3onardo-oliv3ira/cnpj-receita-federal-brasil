@@ -11,7 +11,7 @@ public class SituacaoCadastralTransformer extends AbstractTransformer{
       case "03": return "Suspensa";
       case "04": return "Inapta";
       case "08": return "Baixada";
-      default: return "Indefinida";
+      default: return input;
     }
   }
 }

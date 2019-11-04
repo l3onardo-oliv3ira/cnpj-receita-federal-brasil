@@ -11,7 +11,7 @@ public class OpcaoSimplesTransformer extends AbstractTransformer{
       case "7": return "Optante pelo simples";
       case "6":
       case "8": return "Excluídos do simples";
-      default:  return "Indefinido";
+      default:  return input;
     }
   }
 }

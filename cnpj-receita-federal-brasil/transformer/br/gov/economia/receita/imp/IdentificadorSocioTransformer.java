@@ -9,7 +9,7 @@ public class IdentificadorSocioTransformer extends AbstractTransformer{
       case "1": return "Pessoa Jurídica";
       case "2": return "Pessoa Física";
       case "3": return "Estrangeiro";
-      default:  return "Indefinido";
+      default:  return input;
     }
   }
 }

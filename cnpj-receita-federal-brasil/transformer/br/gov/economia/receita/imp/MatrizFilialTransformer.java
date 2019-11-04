@@ -8,7 +8,7 @@ public class MatrizFilialTransformer  extends AbstractTransformer{
     switch(input) {
       case "1": return "Matriz";
       case "2": return "Filial";
-      default: return "Indefinido";
+      default: return input;
     }
   }
 }

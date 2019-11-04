@@ -11,7 +11,7 @@ public class IndicadorFullDiarioTransformer extends AbstractTransformer{
       case "D": return "Diário";
       case "M": return "Mensal";
       case "T": return "Trimestral";
-      default: return "Indefinido";
+      default: return input;
     }
   }
 

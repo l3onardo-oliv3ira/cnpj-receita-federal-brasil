@@ -9,7 +9,7 @@ public class PortEmpresaTransformer extends AbstractTransformer{
         case "00": return "Não informado";
         case "01": return "Micro empresa";
         case "03": return "Empresa de pequeno porte"; 
-        default:    return "Demais";
+        default:   return "Demais";
     }
   }
 }

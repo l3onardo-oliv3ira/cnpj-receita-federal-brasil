@@ -9,7 +9,7 @@ public class CnaeTipoAtualizacaoTransformer extends AbstractTransformer {
       case "A": return "Atualização do estabelecimento";
       case "I": return "Inclusão de um novo estabelecimento";
       case "E": return "Exclusão do estabelecimento";
-      default: return "Indefinido";
+      default: return input;
     }
   }
 }
