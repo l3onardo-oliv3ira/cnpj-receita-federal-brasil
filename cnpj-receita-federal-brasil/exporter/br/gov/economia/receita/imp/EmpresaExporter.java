@@ -3,7 +3,6 @@ package br.gov.economia.receita.imp;
 import java.io.IOException;
 
 import br.gov.economia.receita.IField;
-import br.gov.economia.receita.imp.adapter.IVisitorAdapter;
 
 public class EmpresaExporter extends EmpresaVisitor {
 

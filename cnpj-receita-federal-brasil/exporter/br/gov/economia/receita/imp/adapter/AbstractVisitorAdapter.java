@@ -1,5 +1,7 @@
 package br.gov.economia.receita.imp.adapter;
 
+import br.gov.economia.receita.imp.IVisitorAdapter;
+
 public abstract class AbstractVisitorAdapter implements IVisitorAdapter {
   private long total;
   private long max;
