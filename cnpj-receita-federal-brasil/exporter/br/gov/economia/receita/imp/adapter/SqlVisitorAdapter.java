@@ -1,21 +1,27 @@
 package br.gov.economia.receita.imp.adapter;
 
+import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import br.gov.economia.receita.IField;
 
-public class SqlVisitorAdapter implements IVisitorAdapter {
+public class SqlVisitorAdapter extends AbstractVisitorAdapter{
 
   private final String tableName;
   private final PrintWriter writer;
   
   private final StringBuilder values = new StringBuilder();
   
-  public SqlVisitorAdapter(String tableName, File output) throws IOException {
-    this.writer = new PrintWriter(output, Charset.forName("UTF-8"));
+  public SqlVisitorAdapter(File output, String tableName) throws IOException {
+    this(output, Long.MAX_VALUE, tableName);
+  }
+  
+  public SqlVisitorAdapter(File output, long max, String tableName) throws IOException {
+    super(0, max);
+    this.writer = new PrintWriter(output, ISO_8859_15);
     this.tableName = tableName;
   }
   
@@ -45,7 +51,7 @@ public class SqlVisitorAdapter implements IVisitorAdapter {
   }
   
   @Override
-  public void endData() {
+  public void doEndData() {
     writer.print(")values(");
     writer.print(values);
     writer.println(");");

@@ -1,11 +1,11 @@
 package br.gov.economia.receita.imp;
 
+import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import br.gov.economia.receita.ICnaeLayout;
@@ -14,6 +14,7 @@ import br.gov.economia.receita.IHeaderLayout;
 import br.gov.economia.receita.IRegisterVisitor;
 import br.gov.economia.receita.ISocioLayout;
 import br.gov.economia.receita.ITraillerLayout;
+import br.gov.economia.receita.imp.adapter.MaxRegisterFoundException;
 
 public final class FileLayout implements Runnable{
   
@@ -87,12 +88,11 @@ public final class FileLayout implements Runnable{
   public void run() {
     File[] files = input.isFile() ? new File[] {input} : input.listFiles((File dir, String name) -> !name.startsWith("."));
     try {
-      Charset charset = Charset.forName("iso-8859-1");
       
       visitor.start();
       
       for(int i = 0; i < files.length; i++) {
-        try(var buffer = new BufferedReader(new FileReader(files[i], charset), bufferSize)){
+        try(var buffer = new BufferedReader(new FileReader(files[i], ISO_8859_15), bufferSize)){
           if (iterate(buffer) == VisitResult.TERMINATE)
             break;
         } catch (IOException e) {
@@ -150,7 +150,11 @@ public final class FileLayout implements Runnable{
         continue;
       if (VisitResult.TERMINATE == vr)
         return vr;
-      vr = layout.end(visitor);
+      try {
+        vr = layout.end(visitor);
+      }catch(MaxRegisterFoundException e) {
+        vr = VisitResult.TERMINATE;
+      }
       if (VisitResult.TERMINATE == vr)
         return vr;
     }while(true);

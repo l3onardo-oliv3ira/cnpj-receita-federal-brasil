@@ -1,19 +1,26 @@
 package br.gov.economia.receita.imp.adapter;
 
+import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 
 import br.gov.economia.receita.IField;
+import br.gov.economia.receita.imp.Constants;
 
-public class JsonVisitorAdapter implements IVisitorAdapter{
+public class JsonVisitorAdapter extends AbstractVisitorAdapter{
 
   private boolean comma = false;
   private final PrintWriter writer;
   
   public JsonVisitorAdapter(File output) throws IOException {
-    this.writer = new PrintWriter(output, Charset.forName("UTF-8"));
+    this(output, Long.MAX_VALUE);
+  }
+  
+  public JsonVisitorAdapter(File output, long max) throws IOException {
+    super(0, max);
+    this.writer = new PrintWriter(output, ISO_8859_15);
   }
   
   @Override
@@ -37,7 +44,7 @@ public class JsonVisitorAdapter implements IVisitorAdapter{
   }
 
   @Override
-  public void endData() {
+  public void doEndData() {
     writer.println();
     writer.print('}');
   }

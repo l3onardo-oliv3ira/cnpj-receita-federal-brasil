@@ -1,17 +1,14 @@
 package br.gov.economia.receita.imp;
 
-import java.io.File;
-import java.io.IOException;
-
 import br.gov.economia.receita.IField;
-import br.gov.economia.receita.imp.adapter.SqlVisitorAdapter;
+import br.gov.economia.receita.imp.adapter.IVisitorAdapter;
 
-public class CnaeSqlExporter extends CnaeVisitor {
+public class CnaeExporter extends CnaeVisitor {
 
-  private final SqlVisitorAdapter adapter;
+  private final IVisitorAdapter adapter;
   
-  public CnaeSqlExporter(File output) throws IOException {
-    this.adapter = new SqlVisitorAdapter("cnae", output);
+  public CnaeExporter(IVisitorAdapter adapter) {
+    this.adapter = adapter;
   }
   
   @Override
@@ -40,16 +37,5 @@ public class CnaeSqlExporter extends CnaeVisitor {
   public VisitResult endCnae() {
     adapter.endData();
     return VisitResult.CONTINUE;
-  }
-
-  public static void main(String[] args) throws IOException {
-    File input  = new File("./input/K3241.K03200DV.D90805.L00002");
-    File output = new File("./output/cnae.sql");
-    FileLayout layout = LayoutProvider
-        .cnaeLayout()
-        .build(input, new CnaeSqlExporter(output));
-    layout.run();
-    
-    System.out.println("Use o comando: [Get-Content .\\cnae.sql -Head 100] para ver as 100 primeiras linhas do arquivo");
   }
 }

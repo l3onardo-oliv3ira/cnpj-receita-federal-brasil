@@ -8,4 +8,5 @@ public interface IVisitorAdapter {
   public void beginData(long row);
   public void data(long row, IField field);
   public void endData();
+  public long getTotal();
 }
