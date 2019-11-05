@@ -14,7 +14,7 @@ import br.gov.economia.receita.IHeaderLayout;
 import br.gov.economia.receita.IRegisterVisitor;
 import br.gov.economia.receita.ISocioLayout;
 import br.gov.economia.receita.ITraillerLayout;
-import br.gov.economia.receita.imp.adapter.MaxRegisterFoundException;
+import br.gov.economia.receita.adapter.imp.MaxRegisterFoundException;
 
 public final class FileLayout implements Runnable{
   

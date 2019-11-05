@@ -1,4 +1,4 @@
-package br.gov.economia.receita.imp.adapter;
+package br.gov.economia.receita.adapter.imp;
 
 public class MaxRegisterFoundException extends RuntimeException {
   private static final long serialVersionUID = -409595744617943615L;

@@ -1,6 +1,6 @@
-package br.gov.economia.receita.imp.adapter;
+package br.gov.economia.receita.adapter.imp;
 
-import br.gov.economia.receita.imp.IVisitorAdapter;
+import br.gov.economia.receita.adapter.IVisitorAdapter;
 
 public abstract class AbstractVisitorAdapter implements IVisitorAdapter {
   private long total;

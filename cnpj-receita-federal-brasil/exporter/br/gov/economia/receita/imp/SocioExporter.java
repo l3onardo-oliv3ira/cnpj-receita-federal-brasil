@@ -1,6 +1,7 @@
 package br.gov.economia.receita.imp;
 
 import br.gov.economia.receita.IField;
+import br.gov.economia.receita.adapter.IVisitorAdapter;
 
 public class SocioExporter extends SocioVisitor {
 

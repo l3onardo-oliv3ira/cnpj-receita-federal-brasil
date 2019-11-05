@@ -1,4 +1,4 @@
-package br.gov.economia.receita.imp;
+package br.gov.economia.receita.adapter;
 
 import br.gov.economia.receita.IField;
 

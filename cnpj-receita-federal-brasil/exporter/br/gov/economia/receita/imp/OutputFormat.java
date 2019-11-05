@@ -3,10 +3,11 @@ package br.gov.economia.receita.imp;
 import java.io.File;
 import java.io.IOException;
 
+import br.gov.economia.receita.adapter.IVisitorAdapter;
+import br.gov.economia.receita.adapter.imp.CsvVisitorAdapter;
+import br.gov.economia.receita.adapter.imp.JsonVisitorAdapter;
+import br.gov.economia.receita.adapter.imp.SqlVisitorAdapter;
 import br.gov.economia.receita.imp.FileLayout.Builder;
-import br.gov.economia.receita.imp.adapter.CsvVisitorAdapter;
-import br.gov.economia.receita.imp.adapter.JsonVisitorAdapter;
-import br.gov.economia.receita.imp.adapter.SqlVisitorAdapter;
 
 public enum OutputFormat {
   CSV {

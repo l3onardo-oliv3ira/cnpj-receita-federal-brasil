@@ -1,4 +1,4 @@
-package br.gov.economia.receita.imp.adapter;
+package br.gov.economia.receita.adapter.imp;
 
 import static br.gov.economia.receita.imp.Constants.UTF_8;
 
@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import br.gov.economia.receita.IField;
-import br.gov.economia.receita.imp.Constants;
 
 public class SqlVisitorAdapter extends AbstractVisitorAdapter{
 
