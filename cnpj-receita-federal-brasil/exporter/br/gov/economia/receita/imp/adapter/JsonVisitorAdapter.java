@@ -1,17 +1,16 @@
 package br.gov.economia.receita.imp.adapter;
 
-import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+import static br.gov.economia.receita.imp.Constants.UTF_8;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import br.gov.economia.receita.IField;
-import br.gov.economia.receita.imp.Constants;
 
 public class JsonVisitorAdapter extends AbstractVisitorAdapter{
 
-  private boolean comma = false;
+  private boolean commaArray = false, commaData = false;
   private final PrintWriter writer;
   
   public JsonVisitorAdapter(File output) throws IOException {
@@ -20,7 +19,7 @@ public class JsonVisitorAdapter extends AbstractVisitorAdapter{
   
   public JsonVisitorAdapter(File output, long max) throws IOException {
     super(0, max);
-    this.writer = new PrintWriter(output, ISO_8859_15);
+    this.writer = new PrintWriter(output, UTF_8);
   }
   
   @Override
@@ -36,22 +35,23 @@ public class JsonVisitorAdapter extends AbstractVisitorAdapter{
 
   @Override
   public void beginData(long row) {
-    if (comma)
+    if (commaArray)
       writer.println(',');
     writer.println('{');
-    writer.print(" \"id\": " + row);
-    comma = true;
+    commaArray = true;
   }
 
   @Override
   public void doEndData() {
     writer.println();
     writer.print('}');
+    commaData = false;
   }
 
   @Override
   public void data(long row, IField field) {
-    writer.println(',');
+    if (commaData)
+      writer.println(',');
     writer.print(" \"" + field.getName() + "\":");
     if (!field.isMultivalued())
       writer.print(field.getValue());
@@ -66,5 +66,6 @@ public class JsonVisitorAdapter extends AbstractVisitorAdapter{
       }
       writer.print(']');
     }
+    commaData = true;
   }
 }

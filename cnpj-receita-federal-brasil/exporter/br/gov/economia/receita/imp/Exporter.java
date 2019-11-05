@@ -34,7 +34,7 @@ public enum Exporter {
   abstract FileLayout doExport(File input, File output, OutputFormat outputFormat, long max) throws IOException;
 
   public static void main(String[] args) throws IOException {
-    long total = Long.MAX_VALUE;
+    long total = 1000;
     File input  = new File("./input");
     
     File output = new File("D:/output/empresa.json");

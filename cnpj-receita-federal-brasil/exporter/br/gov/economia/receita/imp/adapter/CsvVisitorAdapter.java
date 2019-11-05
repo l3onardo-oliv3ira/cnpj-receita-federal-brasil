@@ -1,6 +1,6 @@
 package br.gov.economia.receita.imp.adapter;
 
-import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+import static br.gov.economia.receita.imp.Constants.UTF_8;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class CsvVisitorAdapter extends AbstractVisitorAdapter {
   
   public CsvVisitorAdapter(File output, long max) throws IOException {
     super(0, max);
-    this.writer = new PrintWriter(output, ISO_8859_15);
+    this.writer = new PrintWriter(output, UTF_8);
   }
 
   @Override

@@ -1,15 +1,17 @@
 package br.gov.economia.receita.imp.adapter;
 
-import static br.gov.economia.receita.imp.Constants.ISO_8859_15;
+import static br.gov.economia.receita.imp.Constants.UTF_8;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import br.gov.economia.receita.IField;
+import br.gov.economia.receita.imp.Constants;
 
 public class SqlVisitorAdapter extends AbstractVisitorAdapter{
 
+  private boolean comma = false;
   private final String tableName;
   private final PrintWriter writer;
   
@@ -21,7 +23,7 @@ public class SqlVisitorAdapter extends AbstractVisitorAdapter{
   
   public SqlVisitorAdapter(File output, long max, String tableName) throws IOException {
     super(0, max);
-    this.writer = new PrintWriter(output, ISO_8859_15);
+    this.writer = new PrintWriter(output, UTF_8);
     this.tableName = tableName;
   }
   
@@ -38,16 +40,20 @@ public class SqlVisitorAdapter extends AbstractVisitorAdapter{
 
   @Override
   public void beginData(long row) {
+    comma = false;
     values.setLength(0);
-    writer.print("insert into " + tableName + " (id");
-    values.append(row);
+    writer.print("insert into " + tableName + " (");
   }
 
   @Override
   public void data(long row, IField field) {
-    writer.print(',');
+    if (comma)
+      writer.print(',');
     writer.print(field.getName());
-    values.append(',').append(field.getValue());
+    if (comma)
+      values.append(',');
+    values.append(field.getValue());
+    comma = true;
   }
   
   @Override
