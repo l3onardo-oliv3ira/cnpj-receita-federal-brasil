@@ -7,19 +7,22 @@ public enum Exporter {
   CNAE {
     @Override
     public FileLayout doExport(File input, File output, OutputFormat format, long max) throws IOException {
-      return format.cnaeLayout().build(input, new CnaeExporter(format.getAdapter(output, max, "cnae")));
+      FileLayout.Builder b = format.cnaeLayout();
+      return b.build(input, new CnaeExporter(format.getAdapter(output, max, new CnaeDdlOutput(b.cnae()))));
     }
   },
   EMPRESA {
     @Override
     public FileLayout doExport(File input, File output, OutputFormat format, long max) throws IOException {
-      return format.empresaLayout().build(input, new EmpresaExporter(format.getAdapter(output, max, "empresa")));
+      FileLayout.Builder b = format.empresaLayout();
+      return b.build(input, new EmpresaExporter(format.getAdapter(output, max, new EmpresaDdlOuptut(b.empresa()))));
     }
   },
   SOCIO {
     @Override
     public FileLayout doExport(File input, File output, OutputFormat format, long max) throws IOException {
-      return format.socioLayout().build(input, new SocioExporter(format.getAdapter(output, max, "socio")));
+      FileLayout.Builder b = format.socioLayout();
+      return b.build(input, new SocioExporter(format.getAdapter(output, max, new SocioDdlOuptut(b.socio()))));
     }
   };
   

@@ -55,7 +55,7 @@ public enum OutputFormat {
   SQL {
     @Override
     IVisitorAdapter getAdapter(File output, long max, Object... payload) throws IOException {
-      return new SqlVisitorAdapter(output, max, payload[0].toString());
+      return new SqlVisitorAdapter(output, max, (IDdlOutput)payload[0]);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package br.gov.economia.receita;
 
+import java.io.OutputStream;
+
 public interface IEmpresaLayout extends IBuilderProvider{
   public IFieldSetup<IEmpresaLayout> tipo_de_registro();
   public IFieldSetup<IEmpresaLayout> indicador_full_diario();

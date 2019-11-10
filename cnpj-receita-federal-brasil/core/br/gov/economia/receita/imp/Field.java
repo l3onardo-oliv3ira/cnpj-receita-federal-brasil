@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.gov.economia.receita.IField;
+import br.gov.economia.receita.IFieldType;
 import br.gov.economia.receita.ITransformer;
 
 class Field implements IField {
@@ -15,12 +16,14 @@ class Field implements IField {
   private final LineReader reader;
   private ITransformer transformer = ITransformer.IDENTITY;
   private List<String> values = new ArrayList<>(1);
+  private IFieldType type;
   
   Field(String name, int start, int size, LineReader reader) {
     this.name = name;
     this.start = start;
     this.size = size;
     this.reader = reader;
+    this.type = DatabaseType.TEXT;
   }
   
   @Override
@@ -52,12 +55,21 @@ class Field implements IField {
   }
   
   @Override
+  public IFieldType getType() {
+    return type;
+  }
+  
+  @Override
   public final String toString() {
     return this.name + ": " + getValue();
   }
   
   final void setName(String name) {
     this.name = name;
+  }
+  
+  final void setType(IFieldType type) {
+    this.type = type;
   }
   
   final void setTransformer(ITransformer transformer) {

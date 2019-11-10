@@ -12,5 +12,6 @@
 	<classpathentry kind="src" path="exporter"/>
 	<classpathentry kind="src" path="transformer"/>
 	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="sql"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

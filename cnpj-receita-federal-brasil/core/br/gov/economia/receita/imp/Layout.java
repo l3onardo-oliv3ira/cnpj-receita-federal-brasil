@@ -2,8 +2,10 @@ package br.gov.economia.receita.imp;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import br.gov.economia.receita.IBuilderProvider;
+import br.gov.economia.receita.IField;
 import br.gov.economia.receita.IRegisterVisitor;
 
 abstract class Layout implements IBuilderProvider, ILayout{
@@ -64,5 +66,11 @@ abstract class Layout implements IBuilderProvider, ILayout{
     return field;
   }
   
+  @Override
+  public final void forEachField(Consumer<IField> consumer) {
+    fields.values().forEach(consumer);
+  }
+
   protected abstract VisitResult visitField(IRegisterVisitor visitor, Field field, long row);
+  
 }

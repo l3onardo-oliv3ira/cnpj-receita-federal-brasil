@@ -7,33 +7,36 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import br.gov.economia.receita.IField;
+import br.gov.economia.receita.imp.IDdlOutput;
 
 public class SqlVisitorAdapter extends AbstractVisitorAdapter{
 
   private boolean comma = false;
-  private final String tableName;
+  private final IDdlOutput ddl;
   private final PrintWriter writer;
   
   private final StringBuilder values = new StringBuilder();
   
-  public SqlVisitorAdapter(File output, String tableName) throws IOException {
-    this(output, Long.MAX_VALUE, tableName);
+  public SqlVisitorAdapter(File output, IDdlOutput ddl) throws IOException {
+    this(output, Long.MAX_VALUE, ddl);
   }
   
-  public SqlVisitorAdapter(File output, long max, String tableName) throws IOException {
+  public SqlVisitorAdapter(File output, long max, IDdlOutput ddl) throws IOException {
     super(0, max);
     this.writer = new PrintWriter(output, UTF_8);
-    this.tableName = tableName;
+    this.ddl = ddl;
   }
   
   @Override
   public void start() {
-    writer.println(";start transaction here (insert your script here)");
+    writer.println("BEGIN TRANSACTION;");
+    writer.println(ddl.drop());
+    writer.println(ddl.create());
   }
   
   @Override
   public void end() {
-    writer.println(";commit transaction here (insert your script here)");
+    writer.println("COMMIT;");
     writer.close();
   }
 
@@ -41,7 +44,7 @@ public class SqlVisitorAdapter extends AbstractVisitorAdapter{
   public void beginData(long row) {
     comma = false;
     values.setLength(0);
-    writer.print("insert into " + tableName + " (");
+    writer.print("insert into " + ddl.getName() + " (");
   }
 
   @Override
